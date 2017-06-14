@@ -1,18 +1,11 @@
 # Spring Boot - Maven 3 - CentOS Docker image
-
-[![Build Status](https://travis-ci.org/codecentric/springboot-maven3-centos.svg?branch=master)](https://travis-ci.org/codecentric/springboot-maven3-centos)
-
-This repository contains the sources and [Dockerfile](https://github.com/codecentric/springboot-maven3-centos/blob/master/Dockerfile) of the base image for deploying Spring Boot applications as reproducible Docker images. The resulting images can be run either by [Docker](http://docker.io) or using [S2I](https://github.com/openshift/source-to-image).
-
-This image is heavily inspired by the awesome [openshift/sti-ruby](https://github.com/openshift/sti-ruby/) builder images.
-
-## Usage
-
-To build a simple springboot-sample-app application using standalone S2I and then run the resulting image with Docker execute:
+To build a simple springboot-sample-app application using standalone S2I and then run the resulting image with Docker execute the following commands. In the first line the builder image is built in the second line the sample application. 
 
 ```
-$ s2i build git://github.com/codecentric/springboot-sample-app codecentric/springboot-maven3-centos springboot-sample-app
-$ docker run -p 8080:8080 springboot-sample-app
+$ docker build -t merkel/builderimage .
+$ s2i build https://github.com/nikolaimerkel/sample.git merkel/builderimage sampleapp
+$ docker run -it -p 8080:8080 sampleapp
+
 ```
 
 **Accessing the application:**
